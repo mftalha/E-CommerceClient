@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -13,7 +14,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     FooterComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule // yönlendirme ve sayfaya yükleme komutlarını kullanacaksak html sayfalarından == bunu .ts ye eklememiz gerekiyor
   ],
   exports:[
     HeaderComponent,

@@ -12,6 +12,7 @@ import { UiModule } from './ui/ui.module';
   ],
   imports: [
     BrowserModule,
+    //BrowserAnimationsModule == bunuda import ediyor angular 13 kullanıyor ben 15 kullanıyorum : gerek yok anladığım kadarıyla artık = yaptığı şey linklere bastığımda side barda = sayfalar arası geçişde animasyon görüntüsü
     AppRoutingModule,
     AdminModule,
     UiModule
@@ -20,3 +21,5 @@ import { UiModule } from './ui/ui.module';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

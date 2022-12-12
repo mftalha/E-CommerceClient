@@ -1,0 +1,36 @@
+------------ Uygulama mantık
+
+------ Uygulama layout mantığımı
+- Uygulamamızda 2 layout yapısı kullanacaz.
+= biri admin tarafının layout'u , biri uygulamanın kendi layout'u (ana)
+Not 1 : eğerki daha fazla layout istesem = her bir layout'a karşılık gelecek componentim olmalı. = ana layout'un dışında
+
+---- Multiple layout
+- Not 1: Layoutta dikkat = www. dediğimde == ilk başta ana layout gelir.
+- Her bir componente routing(rota) belirlemeleyim = multiple layout için doğru olan bu.
+= her component'e rota belirlenmez = bazıları bazı compenentlerin alt compenentleridir = header , footer ,sidebar componentleri gibi.
+
+----- Routing mantığı
+- her componente rota belirlemeliydim(bazı alt component istisnaları var)
+- bu rotalamayı app-routingde yapılabilir = ama == modüler yapı kullandığımızda her modülün rotalamasını kendi modülünde yapmalıyım.
+= ama son nokta'da yine app-routing kullanılack.
+
+----- Modüler yapı kullanma mantığımız
+- projede her yapıyı belirli bi modüle koymak. == hiyerarşik yapı kurmak.
+- lazy loading yapısındanda rahatça istifade edebilecez.
+
+----- Neden componentleri modül içine koyuyoruz
+- birden fazla componenti tek sayfada göstermek istemizden kaynaklıdır.
+
+
+
+
+
+
+
+
+
+
+
+
+
