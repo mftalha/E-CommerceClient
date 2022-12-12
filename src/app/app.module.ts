@@ -5,6 +5,7 @@ import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { UiModule } from './ui/ui.module';
     //BrowserAnimationsModule == bunuda import ediyor angular 13 kullanıyor ben 15 kullanıyorum : gerek yok anladığım kadarıyla artık = yaptığı şey linklere bastığımda side barda = sayfalar arası geçişde animasyon görüntüsü
     AppRoutingModule,
     AdminModule,
-    UiModule
+    UiModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

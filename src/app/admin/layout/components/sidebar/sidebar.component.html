@@ -1,7 +1,19 @@
+<!--
 <ul>
-    <li><a routerLink="/admin">Dashboard</a></li> <!--ana layout ile karışmaması için = admin layout'u ana sayfası burası == öndeki slashda admine kadar öndekileri silecek-->
-    <li><a routerLink="customers">Customers</a></li> <!-- routerLink="admin/Customers" = demiyoruz çünkü adminin altındayız artık -->
+    <li><a routerLink="/admin">Dashboard</a></li> //ana layout ile karışmaması için = admin layout'u ana sayfası burası == öndeki slashda admine kadar öndekileri silecek
+    <li><a routerLink="customers">Customers</a></li> // routerLink="admin/Customers" = demiyoruz çünkü adminin altındayız artık 
     <li><a routerLink="products">Products</a></li>
     <li><a routerLink="orders">Orders</a></li>
-    <li><a routerLink="">Siteyi Gör</a></li> <!-- Ana layout ana sayfası-->
+    <li><a routerLink="">Siteyi Gör</a></li> // Ana layout ana sayfası
 </ul>
+-->
+
+
+<mat-list role="list">
+    <!-- <mat-list-item role="listitem">Item 2</mat-list-item> == normal kullanımı biz aşşağıda değiştiriyoruz-->
+    <a mat-list-item role="listitem" routerLink="/admin">Dashboard</a>
+    <a mat-list-item role="listitem" routerLink="customers">Customers</a>
+    <a mat-list-item role="listitem" routerLink="products">Products</a>
+    <a mat-list-item role="listitem" routerLink="orders">Orders</a>
+    <a mat-list-item role="listitem" routerLink="">Siteyi Gör</a>
+  </mat-list>

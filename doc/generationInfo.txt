@@ -1,0 +1,20 @@
+Meterial Angular: https://material.angular.io/
+- Nedir : Angular için UI  kütüphanelerini barındıran bir kütüphane.
+- Meterial kullanma sebebimiz = içindeki compenentlere erişim.
+
+kurlumu: get start sayfasına gittimde bana zaten adım adım  gösteriyor
+- ng add @angular/material diye termina yapıştırıyrum önce 
+= devam etmek istiyrmusun diyecek = y diyoruz
+= sonra bize hangi tasarımı istiyoyurz diye soruyor = mavi , penpe = farklı tasarımları var.
+= pink -blue olanı seçtik biz. 
+= meterail ile ilgili bazı stylar ayarlansınmı diyor = y diyoruz
+= animasyonları nasıl içereyim diypor = burası farklıydı yıldızdan = enable module seçtim 
+  == farklı olma sebebi ana modüle bunu eklemişti versiyon 13 de BrowserAnimationsModule, versiyon 15 de onu eklemeden yine aynı işlemi yapmıitım orda açıklaması var. (ekletmiyorduda kaldırılmış.)
+
+--- Genel kullanımı :
+componente tıklıyorum : 
+= html ini alıp = gerekli htmkl sayfasına
+= css ne tıklayıp css'ini gerekli css sayfasına
+= ts si var ise gerekli ts sayfasına == html , css'in bulunduğu sayfadaki
+= * sonra  apıye tıklayıp üstten = modül import'unu alıyorum ve gerekli modülün üst kısma yapıştırıyorum linki ve modülün importuna = importu yapıştırıyorum
+   hangi modüle koyacam = html , css 'in bağlı olduğu modüle koyacam.
