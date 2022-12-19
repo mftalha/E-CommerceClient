@@ -32,7 +32,7 @@ export class AppComponent {
 }
 
 
-
+$.get("https://localhost:7071/api/products",data =>{console.log(data)}) //api uygulammızdan istekde bulunuyoruz = cross politikalarını test etmek için == apide program.cs de cross politikalarını herkeze veya bu uygulamaya izin vermediğimde hata aldım. izin verdikten sonra apiden veri çekebildim buraya.
 
 /* jquery testini yaptık.
 $(document).ready(()=>{ //sayfa açıldığında jquery ile alert basıyoruz.
