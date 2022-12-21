@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,12 @@ import { ToastrModule } from 'ngx-toastr';
     AdminModule,
     UiModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot() // ToastrModule add == tootster modülü kullanabilmek için ios'i depending enjectiona enjecte ediyoruz. == artık .ts den çağırabiliriz.
+    ToastrModule.forRoot(), // ToastrModule add == tootster modülü kullanabilmek için ios'i depending enjectiona enjecte ediyoruz. == artık .ts den çağırabiliriz.
+    HttpClientModule //http client servis ile oluşturduğumuz servisi kullanmamız için bunu import etmemiz gerekiyor ana modülümüze : yani buraya
   ],
-  providers: [],
+  providers: [
+    { provide: "baseUrl", useValue: "https://localhost:7071/api", multi: true} // appConfig mantıgını burada gerçekleştirdik.
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
