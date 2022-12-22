@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 //import { Product } from 'src/app/contracts/product';  == böyleydi değişti client çalışıyormu testlerinden sonra
 import { Create_Product } from 'src/app/contracts/create_product';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
@@ -9,13 +11,14 @@ import { BasketsComponent } from 'src/app/ui/components/baskets/baskets.componen
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit{
+export class ProductsComponent extends BaseComponent implements OnInit{
 
-  constructor(private httpClientService: HttpClientService){
-
+  constructor(spinner: NgxSpinnerService,private httpClientService: HttpClientService){
+    super(spinner);
   }
 
   ngOnInit(): void {
+    //this.showSpinner(SpinnerType.BallSpinClockwiseFade);
     
     /*
     // apı tarafındaki tablo verilerinin buradaki karşılıgını =contract'ını oluşturmadan önce bu şekilde çalıştırdık. 
