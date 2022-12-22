@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/contracts/product';
+//import { Product } from 'src/app/contracts/product';  == böyleydi değişti client çalışıyormu testlerinden sonra
+import { Create_Product } from 'src/app/contracts/create_product';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { BasketsComponent } from 'src/app/ui/components/baskets/baskets.component';
 
@@ -23,6 +24,7 @@ export class ProductsComponent implements OnInit{
     }).subscribe(data => console.log(data)); //bu şekilde prodoct get methodunu çağırıyoruz.
     */
 
+    /*
     // gelen json datayı artık contract karşılğında düzenliyecez.
     this.httpClientService.get<Product[]>({
       controller: "products"
@@ -30,7 +32,7 @@ export class ProductsComponent implements OnInit{
       console.log(data)
       //data[0].name;
     ); //bu şekilde prodoct get methodunu çağırıyoruz.
-    
+    */
     
     /*
     this.httpClientService.post({

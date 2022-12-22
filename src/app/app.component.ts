@@ -12,6 +12,7 @@ export class AppComponent {
   title = 'ETicaretClient';
 
   constructor(private toastrService: CustomToastrService) {
+    /* == toastrService kullanımı.
     toastrService.message("Merhaba","Talha",{
       messageType : ToastrMessageType.Info,
       position : ToastrPosition.BottomCenter
@@ -28,6 +29,7 @@ export class AppComponent {
       messageType : ToastrMessageType.Warning,
       position : ToastrPosition.BottomLeft
     });
+    */
   }
 }
 
