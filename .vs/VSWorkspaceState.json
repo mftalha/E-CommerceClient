@@ -7,10 +7,7 @@
     "\\src\\app\\admin\\components",
     "\\src\\app\\admin\\components\\products",
     "\\src\\app\\contracts",
-    "\\src\\app\\services",
-    "\\src\\app\\services\\common",
-    "\\src\\app\\services\\common\\models"
+    "\\src\\app\\services"
   ],
-  "SelectedNode": "\\src\\app\\admin\\components\\products\\products.component.ts",
   "PreviewInSolutionExplorer": false
 }

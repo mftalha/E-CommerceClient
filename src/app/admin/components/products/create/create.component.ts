@@ -27,6 +27,25 @@ export class CreateComponent extends BaseComponent {
     create_product.stock = parseInt(stock.value);
     create_product.price = parseFloat(price.value);
 
+    // client tarafındada validation sağlanmış oldu : böylece hem client - hem backend validationu şimdilik sağladık.
+    if (!name.value) { //şimdilik böyle bi kontrol yapıyoruz bu kullanım doğru değil : Reactive Forms kullancaz bu işlemler için :: şimdilik temel kontrolleri yapıyoruz.
+      this.alertfy.message("Lütfen ürün adı giriniz!", {
+        dismissOthers: true,
+        messageType: MessageType.Error,
+        position: Position.TopRight
+      });
+      return;
+    }
+
+    if (parseInt(stock.value) < 0) {
+      this.alertfy.message("Lütfen stok bilgisini doğru giriniz!", {
+        dismissOthers: true,
+        messageType: MessageType.Error,
+        position: Position.TopRight
+      });
+      return;
+    }
+
     /*this.productService.create(create_product, () => {
       this.hideSpinner(SpinnerType.BallAtom);
       this.alertify.message("Ürün başarıyla eklenmiştir.", {
@@ -41,6 +60,12 @@ export class CreateComponent extends BaseComponent {
         messageType: MessageType.Success,
         position: Position.TopRight
       });
+    }, errorMessage => {
+      this.alertfy.message(errorMessage, {
+        dismissOthers: true,
+        messageType: MessageType.Error,
+        position: Position.TopRight
+        });
     });
   }
 }
