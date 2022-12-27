@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 //import { Product } from 'src/app/contracts/product';  == böyleydi değişti client çalışıyormu testlerinden sonra
 import { Create_Product } from 'src/app/contracts/create_product';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
 import { BasketsComponent } from 'src/app/ui/components/baskets/baskets.component';
+import { ListComponent } from './list/list.component';
 
 @Component({
   selector: 'app-products',
@@ -15,6 +16,12 @@ export class ProductsComponent extends BaseComponent implements OnInit{
 
   constructor(spinner: NgxSpinnerService,private httpClientService: HttpClientService){
     super(spinner);
+  }
+
+  @ViewChild(ListComponent) listComponents: ListComponent  //product componentin altında 2 tane componenet olduğundan hangisini elde etmek istediğimi belirtiyorum. == onun methotlarına erişecem listComponents paremetresi ile.
+  // burda yapılan işlem prodoct modül : hem created componenti hem list componenti kapsadığından created componentte eklenen ürünü : list component içindeki listede gösterebilmek için prodoct html ve componenti kullanıyoruz : bir nevi atası olduğu için ilgili componentlerde yapılan işlemleri yakalayabiliyorum burdan ve onların methotlarını tetikleyebiliyorum.
+  createdProduct(createdProduct: Create_Product) {
+    this.listComponents.getProducts(); //ürün eklendiğinde listeyi tekrar dan güncelleyecektir.
   }
 
   ngOnInit(): void {

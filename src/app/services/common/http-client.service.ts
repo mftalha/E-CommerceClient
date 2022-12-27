@@ -22,7 +22,7 @@ export class HttpClientService {
     if(requestParameters.fullEndpoint) // fullEndpoint dolu ise url yi ful end point yapacaz.
       url = requestParameters.fullEndpoint;
     else    
-      url = `${this.url(requestParameters)}${id ? `/${id}`: ""}`; //id dolu ise /id , boş ise boş geç == slaş hertürlü olabilirdi sorun çıkarmazdı ama : gerek yok.
+      url = `${this.url(requestParameters)}${id ? `/${id}`: ""}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`; //id dolu ise /id , boş ise boş geç == slaş hertürlü olabilirdi sorun çıkarmazdı ama : gerek yok.
 
     return this.httpClient.get<T>(url, { headers: requestParameters.headers})
   }
@@ -33,7 +33,7 @@ export class HttpClientService {
     if(requestParameters.fullEndpoint)
       url = requestParameters.fullEndpoint;
     else
-      url = `${this.url(requestParameters)}`;
+      url = `${this.url(requestParameters)}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`;
 
     return this.httpClient.post<T>(url, body, {headers: requestParameters.headers})
   }
@@ -43,7 +43,7 @@ export class HttpClientService {
     if(requestParameters.fullEndpoint)
       url = requestParameters.fullEndpoint;
     else
-      url = `${this.url(requestParameters)}`;
+      url = `${this.url(requestParameters)}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`;
 
     return this.httpClient.put<T>(url,body,{headers: requestParameters.headers});
   }
@@ -53,7 +53,7 @@ export class HttpClientService {
     if(requestParameters.fullEndpoint)
       url = requestParameters.fullEndpoint;
     else
-      url = `${this.url(requestParameters)}/${id}`;
+      url = `${this.url(requestParameters)}/${id}${requestParameters.queryString ? `?${requestParameters.queryString}` : ""}`;
 
     return this.httpClient.delete<T>(url, {headers: requestParameters.headers });
   }
@@ -62,6 +62,7 @@ export class HttpClientService {
 export class RequestParameters{ //buraya koyduğum herşey genel şeylerdir = tüm methodlarda kullanacağım şeyler :: eğerki ortak olmayan şeyler olursa method paremetresi olarak girmeliyim = id gibi : bazı methotlarda olacak : her zaman kullanılmaz.
   controller?: string; //null gelebilecekleri için nulable tanımlıyoruz.
   action?: string;
+  queryString?: string;
 
   headers?: HttpHeaders;
   baseUrl?: string; //temel url miz değişebilir`= eğerki bu dolu değil ise ana modulden gelen url yi kullan yoksa bu nu kullan url olarak
