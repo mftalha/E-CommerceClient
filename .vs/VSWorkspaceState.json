@@ -6,12 +6,10 @@
     "\\src\\app\\admin",
     "\\src\\app\\admin\\components",
     "\\src\\app\\admin\\components\\products",
-    "\\src\\app\\admin\\components\\products\\create",
     "\\src\\app\\admin\\components\\products\\list",
-    "\\src\\app\\services",
-    "\\src\\app\\services\\common",
-    "\\src\\app\\services\\common\\models"
+    "\\src\\app\\directives\\admin",
+    "\\src\\assets"
   ],
-  "SelectedNode": "\\src\\app\\services\\common\\http-client.service.ts",
+  "SelectedNode": "\\src\\app\\admin\\components\\products\\products.module.ts",
   "PreviewInSolutionExplorer": false
 }

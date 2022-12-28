@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { firstValueFrom, Observable } from 'rxjs';
 import { Create_Product } from '../../../contracts/create_product';
 import { List_Product } from '../../../contracts/list_product';
 import { HttpClientService } from '../http-client.service';
@@ -42,6 +43,15 @@ export class ProductService {
       .catch((errorResponse: HttpErrorResponse) => errorCallBack(errorResponse.message)) // burda gelen verinin tamamı gelmeden geldiği kadarı kısmında hata varsa buraya girecek
 
     return await promiseData; //verinin tamamı geldiğinde geri döndür : gelen veriyi
+  }
+
+  //silme işlemi için.
+  async delete(id: string) {
+    const deleteObserve: Observable<any> = this.httpClientService.delete<any>({
+      controller: "products"
+    }, id);
+
+    await firstValueFrom(deleteObserve); // deleteObserve içindeki işlemi bekliyecek burda. = asenkron olarak
   }
 }
 
