@@ -1,6 +1,8 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerType } from '../../base/base.component';
+import { DeleteDialogComponent, DeleteState } from '../../dialogs/delete-dialog/delete-dialog.component';
 import { ProductService } from '../../services/common/models/product.service';
 
 declare var $ : any;
@@ -17,7 +19,8 @@ export class DeleteDirective {
     private element: ElementRef,
     private _renderer: Renderer2,
     private productService: ProductService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    public dialog: MatDialog
   ) {
     const img = _renderer.createElement("img");
     img.setAttribute("src", "../../../../../assets/delete.png");
@@ -32,13 +35,29 @@ export class DeleteDirective {
 
   @HostListener("click") //oluşturulan nesneye tıklandığında alttaki methoda gir : bu method ismi ahmette olabilir. önemli olan bu dinleme.
   async onclick() {
-    this.spinner.show(SpinnerType.LineSpinClockwiseFade); // delete.directive : yi base componentten türetmek solit prensiplerine aykırı olacağından : burada tekrar base componenette ayarladığımız düzeni ayarladık basitçe ordan çağırmak yerine.
-    const td: HTMLTableCellElement = this.element.nativeElement; // HTMLTableCellElement == tablo td ye karşılık geliyor.
-    await this.productService.delete(this.id); //ilgili veriyi veritabanında silmek için veritabanı işlemlerini yaptığım servisimi çağırıyorum.
-    $(td.parentElement).fadeOut(2000, () => {
-      this.callback.emit();
-    }); // silme işlemini tr ile yapmam lazım o yüzden : td nin ebeveyni olan tr ye erişiyorum :: td.parentElement diyerek.
-    
+    this.openDialog(async () => {
+      this.spinner.show(SpinnerType.LineSpinClockwiseFade); // delete.directive : yi base componentten türetmek solit prensiplerine aykırı olacağından : burada tekrar base componenette ayarladığımız düzeni ayarladık basitçe ordan çağırmak yerine.
+      const td: HTMLTableCellElement = this.element.nativeElement; // HTMLTableCellElement == tablo td ye karşılık geliyor.
+      await this.productService.delete(this.id); //ilgili veriyi veritabanında silmek için veritabanı işlemlerini yaptığım servisimi çağırıyorum.
+      $(td.parentElement).animate({ //silme işlemi için animasyon uyguluyoruz : görünüş için
+        opacity: 0,
+        left: "+=50",
+        height: "toogle"
+      }, 700, () => { 
+        this.callback.emit();
+      }); // silme işlemini tr ile yapmam lazım o yüzden : td nin ebeveyni olan tr ye erişiyorum :: td.parentElement diyerek. 
+    });
+  }
+
+  openDialog(afterClosed:any): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: DeleteState.Yes,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == DeleteState.Yes)
+        afterClosed();
+    });
   }
 
   /*
@@ -49,6 +68,7 @@ export class DeleteDirective {
 
 
 }
+
 
 // -- direktifi kullanabilmek için
 // oluşturulan directif'i kullanılacağı modulde declare edilmesi gerkiyor.
