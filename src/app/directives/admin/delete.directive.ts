@@ -1,8 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerType } from '../../base/base.component';
 import { DeleteDialogComponent, DeleteState } from '../../dialogs/delete-dialog/delete-dialog.component';
+import { AlertifyService, MessageType, Position } from '../../services/admin/alertify.service';
+import { HttpClientService } from '../../services/common/http-client.service';
 import { ProductService } from '../../services/common/models/product.service';
 
 declare var $ : any;
@@ -18,9 +21,10 @@ export class DeleteDirective {
   constructor(
     private element: ElementRef,
     private _renderer: Renderer2,
-    private productService: ProductService,
+    private httpClientService: HttpClientService,
     private spinner: NgxSpinnerService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private alertifyService: AlertifyService
   ) {
     const img = _renderer.createElement("img");
     img.setAttribute("src", "../../../../../assets/delete.png");
@@ -31,6 +35,7 @@ export class DeleteDirective {
   }
 
   @Input() id: string; //list component.html de input olarak verilen id yi yakalayabilmek için burda id yi input olarak belirtiyoruz.
+  @Input() controller: string;
   @Output() callback: EventEmitter<any> = new EventEmitter() //EventEmitter = from '@angular/core' dan gelecek : !dikkat. //html sayfasından gelip burda yakaladığım output fonksiyonu : ismini html sayfasında ne verdiysem burada o isimle yakalamam gerekiyor = callback vermiştik ismini o yüzden burada bu isimle yakaladım.
 
   @HostListener("click") //oluşturulan nesneye tıklandığında alttaki methoda gir : bu method ismi ahmette olabilir. önemli olan bu dinleme.
@@ -38,14 +43,31 @@ export class DeleteDirective {
     this.openDialog(async () => {
       this.spinner.show(SpinnerType.LineSpinClockwiseFade); // delete.directive : yi base componentten türetmek solit prensiplerine aykırı olacağından : burada tekrar base componenette ayarladığımız düzeni ayarladık basitçe ordan çağırmak yerine.
       const td: HTMLTableCellElement = this.element.nativeElement; // HTMLTableCellElement == tablo td ye karşılık geliyor.
-      await this.productService.delete(this.id); //ilgili veriyi veritabanında silmek için veritabanı işlemlerini yaptığım servisimi çağırıyorum.
-      $(td.parentElement).animate({ //silme işlemi için animasyon uyguluyoruz : görünüş için
-        opacity: 0,
-        left: "+=50",
-        height: "toogle"
-      }, 700, () => { 
-        this.callback.emit();
-      }); // silme işlemini tr ile yapmam lazım o yüzden : td nin ebeveyni olan tr ye erişiyorum :: td.parentElement diyerek. 
+      //await this.productService.delete(this.id); //ilgili veriyi veritabanında silmek için veritabanı işlemlerini yaptığım servisimi çağırıyorum.
+
+      this.httpClientService.delete({
+        controller: this.controller
+      }, this.id).subscribe(data => {
+        $(td.parentElement).animate({ //silme işlemi için animasyon uyguluyoruz : görünüş için
+          opacity: 0,
+          left: "+=50",
+          height: "toogle"
+        }, 700, () => {
+          this.callback.emit();
+          this.alertifyService.message("Ürün başarıyla silinmiştir", {
+            dismissOthers: true,
+            messageType: MessageType.Success,
+            position: Position.TopRight
+          });
+        }); // silme işlemini tr ile yapmam lazım o yüzden : td nin ebeveyni olan tr ye erişiyorum :: td.parentElement diyerek. 
+      }, (errorResponse: HttpErrorResponse) => {
+        this.spinner.hide(SpinnerType.LineSpinClockwiseFade);
+        this.alertifyService.message("Ürün silinirken beklenmeyen bir hata ile karşılaşılmıştır.", {
+          dismissOthers: true,
+          messageType: MessageType.Error,
+          position: Position.TopRight
+        });
+      });
     });
   }
 
